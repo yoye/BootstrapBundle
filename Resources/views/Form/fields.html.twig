@@ -1,30 +1,70 @@
 {% extends 'form_div_layout.html.twig' %}
 
-{# Rows #}
+{# Blocks #}
 
 {% block field_row %}
 {% spaceless %}
-    <div class="clearfix{{ errors|length > 0 ? ' error' : '' }}">
-        {{ form_label(form, label|default(null)) }}
-        <div class="input{{ errors|length > 0 ? ' error' : '' }}">
-            {{ form_widget(form) }}
-            {{ form_errors(form) }}
-        </div>
+<div class="clearfix{{ errors|length > 0 ? ' error' : '' }}">
+    {{ form_label(form, label|default(null)) }}
+    <div class="input{{ errors|length > 0 ? ' error' : '' }}">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
     </div>
+</div>
 {% endspaceless %}
 {% endblock field_row %}
 
-{# Errors #}
-
-{% block field_errors %}
+{% block choice_widget %}
 {% spaceless %}
-    {% if errors|length > 0 %}
-        {% for error in errors %}
-            <span class="help-inline">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
-            {% if loop.last is sameas(false) %}
-            <br />
-            {% endif %}
-        {% endfor %}
+{% if expanded %}
+<div {{ block('widget_container_attributes') }}>
+    <ul class="inputs-list">
+        {% for child in form %}
+        <li>
+            <label>
+                {{ form_widget(child) }}
+                <span>{{ child.get('label')|trans({}, child.get('domain')) }}</span>
+            </label>
+        </li>        
+        {% endfor %}        
+    </ul>
+</div>
+{% else %}
+<select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    {% if empty_value is not none %}
+    <option value="">{{ empty_value|trans }}</option>
     {% endif %}
+    {% if preferred_choices|length > 0 %}
+    {% set options = preferred_choices %}
+    {{ block('widget_choice_options') }}
+    {% if choices|length > 0 and separator is not none %}
+    <option disabled="disabled">{{ separator }}</option>
+    {% endif %}
+    {% endif %}
+    {% set options = choices %}
+    {{ block('widget_choice_options') }}
+</select>
+{% endif %}
+{% endspaceless %}
+{% endblock choice_widget %}
+
+{% block radio_widget %}
+{% spaceless %}
+<input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+       {% endspaceless %}
+       {% endblock radio_widget %}
+
+       {# Errors #}
+
+       {% block field_errors %}
+       {% spaceless %}
+       {% if errors|length > 0 %}
+       {% for error in errors %}
+       <span class="help-inline">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
+{% if loop.last is sameas(false) %}
+<br />
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endspaceless %}
 {% endblock field_errors %}
