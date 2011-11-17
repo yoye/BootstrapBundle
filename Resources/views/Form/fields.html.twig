@@ -1,0 +1,30 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{# Rows #}
+
+{% block field_row %}
+{% spaceless %}
+    <div class="clearfix{{ errors|length > 0 ? ' error' : '' }}">
+        {{ form_label(form, label|default(null)) }}
+        <div class="input{{ errors|length > 0 ? ' error' : '' }}">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock field_row %}
+
+{# Errors #}
+
+{% block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <span class="help-inline">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
+            {% if loop.last is sameas(false) %}
+            <br />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors %}
