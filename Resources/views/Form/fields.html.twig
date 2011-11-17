@@ -23,7 +23,7 @@
         <li>
             <label>
                 {{ form_widget(child) }}
-                <span>{{ child.get('label')|trans({}, child.get('domain')) }}</span>
+                <span>{{ child.get('label')|trans }}</span>
             </label>
         </li>        
         {% endfor %}        
