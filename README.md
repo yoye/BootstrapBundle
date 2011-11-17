@@ -51,10 +51,26 @@ You can use alert as macro in your template.
 In your controller set your flash message.
 
 ``` php
+<?php 
 
 $this->get('session')->setFlash('warning', 'Type your warning message !');
 $this->get('session')->setFlash('info', 'Type your info message !');
 $this->get('session')->setFlash('success', 'Type your success message !');
 $this->get('session')->setFlash('error', 'Type your error message !');
+
+```
+
+2. Form
+
+Config your form template:
+
+``` yaml
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    form:
+        resources: 
+            - 'YoyeBootstrapBundle:Form:fields.html.twig'
 
 ```
