@@ -9,6 +9,9 @@
     <div class="input{{ errors|length > 0 ? ' error' : '' }}">
         {{ form_widget(form) }}
         {{ form_errors(form) }}
+        {% if (help is defined) %}
+        <span class="help-block">{{ help|trans }}</span>
+        {% endif %}
     </div>
 </div>
 {% endspaceless %}
