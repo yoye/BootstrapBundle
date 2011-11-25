@@ -74,3 +74,17 @@ twig:
             - 'YoyeBootstrapBundle:Form:fields.html.twig'
 
 ```
+    
+3. Breadcrumb
+    
+You can use breadcrumb as macro in your template.
+
+``` html
+{% import "YoyeBootstrapBundle::breadcrumb.html.twig" as breadcrumb %}
+
+{{ breadcrumb.draw({
+    'homepage' : path("homepage"), 
+    'You are here !' : none}) }}
+                
+```
+    
