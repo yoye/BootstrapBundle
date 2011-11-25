@@ -1,0 +1,14 @@
+{% macro draw(links) %}
+<ul class="breadcrumb">
+    {% for value, path in links %}
+        {% if path is not none %}
+            <li>
+                <a href="{{ path }}">{{ value | trans }}</a>
+            </li>
+        {% else %}
+            <li class="active">{{ value | trans }}</li>
+        {% endif %}
+        {% if not loop.last %}<span class="divider">/</span>{% endif %}
+    {% endfor %}
+</ul>
+{% endmacro %}
