@@ -29,7 +29,7 @@ public function registerBundles()
 {
     return array(
         // ...
-        new Yoye\BootstrapBundle\YoyeBootstrapBundle(),
+        new Yoye\Bundle\BootstrapBundle\YoyeBootstrapBundle(),
         // ...
     );
 }
