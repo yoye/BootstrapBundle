@@ -1,25 +1,21 @@
 {% macro basic(message, type) %}
-<div class="alert-container">
-    <div class="alert-message {{ type | default('warning') }}" data-alert="alert">
-        <a class="close" href="#">×</a>
-        <p>{{ message }}</p>
-    </div>
+<div class="alert alert-{{ type | default('warning') }}">
+    <a class="close" data-dismiss="alert" href="#">&times;</a>
+    {{ message }}
 </div>
 {% endmacro %}
 
 {% macro block(message, type, buttons) %}
-<div class="alert-container">
-    <div class="alert-message block-message {{ type | default('warning') }}" data-alert="alert">
-        <a class="close" href="#">×</a>
-        <p>{{ message }}</p>
-        {% if buttons is defined %}
-        <div class="alert-actions">
-            {% for text, link in buttons %}
-            <a class="btn small" href="{{ link }}">{{ text }}</a>
-            {% endfor %}
-        </div>
-        {% endif %}
+<div class="alert alert-block alert-{{ type | default('warning') }}">
+    <a class="close" data-dismiss="alert" href="#">&times;</a>
+    {{ message }}
+    {% if buttons is defined %}
+    <div class="alert-actions">
+        {% for text, link in buttons %}
+        <a class="btn small" href="{{ link }}">{{ text }}</a>
+        {% endfor %}
     </div>
+    {% endif %}
 </div>
 {% endmacro %}
 
