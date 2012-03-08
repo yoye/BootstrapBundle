@@ -1,0 +1,37 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block field_row %}
+{% spaceless %}
+<div class="control-group">
+  {{ form_label(form, label|trans) }}
+  <div class="controls">
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+  </div>
+</div>
+{% endspaceless %}
+{% endblock field_row %}
+
+{% block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <span class="control-group error">
+      <span class="help-inline error">
+          {% for error in errors %}
+            {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
+            {% if errors|length > 1 and not loop.last %} - {% endif %}
+          {% endfor %}      
+      </span>      
+    </span>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors %}
+
+{% block checkbox_widget %}
+{% spaceless %}
+    {% set attr = attr|merge({ 'class': (attr.class is defined ? ' ' : '') ~ 'checkbox' }) %}
+    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+           </label>
+{% endspaceless %}
+{% endblock checkbox_widget %}
